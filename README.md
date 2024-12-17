@@ -16,9 +16,11 @@ This repository contains the analysis and design for the **Vacation Tracking Sys
 - [🛠️ Use-Cases](#️-use-cases)
   - [Manage Time](#manage-time)
   - [Entities (Data Model)](#entities-data-model)
-  - [Flowchart](#flowchart)
-  - [Sequence Diagram](#sequence-diagram)
-  - [Pseudocode](#pseudocode)
+  - [Main Flow](#main-flow)
+  - [Withdraw Flow](#withdraw-flow)
+  - [Edit Flow](#edit-flow)
+  - [Cancel Flow](#cancel-flow)
+
 - [📂 Resources](#-resources)
 - [📜 License](#-license)
 
@@ -119,16 +121,110 @@ We hvae different use cases(listed below) but will work on Manage Time one
 ### Entities (Data Model)
 [Entity relationships and attributes](./docs/entities.md)
 
-### Flowchart
-![Flowchart Preview](./assets/flowchart.png)
-[View the detailed flowchart](./docs/flowchart.md)
+### Main Flow
+- Flowchart
+  ![Manage Time Use Case](https://github.com/user-attachments/assets/f33524df-09f7-406a-a7db-ccfa377378df)
 
-### Sequence Diagram
-![Sequence Diagram Preview](./assets/sequence-diagram.png)
-[View the detailed sequence diagram](./docs/sequence-diagram.md)
+- Sequence Diagram
+  ![Create Leave Request](https://github.com/user-attachments/assets/f1431f5c-775e-46c4-9b30-812f08fd549f)
 
-### Pseudocode
-[Step-by-step pseudocode](./docs/pseudocode.md)
+- Pseudocode
+  ```
+  Request createRequest(RequestBody req){
+      if(validateRequest(req)){
+         savedReq = saveRequest(req);
+          notifyManagerIfRequeriedManagerApproval();
+          return savedReq;
+      }
+      throw BadRequestError;
+  }
+
+  boolean validateRequest(req){
+    return validateRequestToAnddFrom(req.to , req.from) && validateCategoryBalance(req.categoryId , employeeId , reqBalance);
+  }
+  
+  function validateRequestToAnddFrom(req.to , req.from){
+    if(from > to)
+        return false;
+    return true;
+  }
+  
+  function validateCategoryBalance(req.categoryId , employeeId , reqBalance){
+    Long empBalance = getEmployeeBalance(empId , categoryId)
+    if(empBlanace > reqBalance)
+        return true;
+    return false;
+  }
+  
+  getEmployeeBalance(empId , categoryId){
+    API integration HR legacy system
+  }
+  ```
+  
+### Withdraw Flow
+- Flowchart
+  <p align="left">
+    <img src="https://github.com/user-attachments/assets/df3d0956-9024-4eec-9ee2-f8a0a94578a6" />
+  </p>
+
+
+- Sequence Diagram
+  ![Withdraw Req](https://github.com/user-attachments/assets/657b5380-b715-457c-947a-f81cf2bc40ca)
+
+- Pseudocode
+   ```
+   boolean withdrawRequest(reqId){
+      if(confirmWithdraw()){
+          removeRequestFromManagerPendingReqList(reqId);
+          updateStatusOfRequest(reqId,WITHDRAWN);
+          notifyManagerIfRequeriedManagerApproval();
+
+       return true;
+      }
+      return  false;
+  }
+  ```
+
+### Edit Flow
+- Flowchart
+  <p align="left">
+    <img src="https://github.com/user-attachments/assets/d54cbeeb-e028-48a9-9442-d8fe960bb05f" />
+  </p>
+
+- Sequence Diagram
+  ![Edit Req drawio](https://github.com/user-attachments/assets/d6d6c5dd-743d-47a5-94e9-fdc22f0945f0)
+
+- Pseudocode
+   ```
+  Request editRequest(RequestBody req){
+      if(validateData(req)){
+         updatedReq = updateRequest(req);
+          return updatedReq;
+      }
+      throw BadRequestError;
+  }
+  ```
+
+### Cancel Flow
+- Flowchart
+  <p align="left">
+    <img src="https://github.com/user-attachments/assets/03e41031-1782-4323-8646-ca2749850b3d" />
+  </p>
+
+- Sequence Diagram
+  ![Cancel Req drawio](https://github.com/user-attachments/assets/98f97503-6414-4757-8f0a-9525f5ed3663)
+
+- Pseudocode
+   ```
+  Request createRequest(RequestBody req){
+      if(confirmCancel(req)){
+         updateEmployeeBalance(req.reqBalance);
+          updateStatusOfRequest(reqId,CANCEL);
+          notifyManagerIfRequeriedManagerApproval();
+      }
+      throw AbortError;
+  }
+  ```
 
 ---
 
