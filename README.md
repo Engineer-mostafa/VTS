@@ -145,7 +145,7 @@ We hvae different use cases(listed below) but will work on Manage Time one
   }
   
   function validateRequestToAnddFrom(req.to , req.from){
-    if(from > to)
+    if(from > to && req.reqDate < from)
         return false;
     return true;
   }
