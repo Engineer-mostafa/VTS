@@ -20,6 +20,7 @@ This repository contains the analysis and design for the **Vacation Tracking Sys
   - [Withdraw Flow](#withdraw-flow)
   - [Edit Flow](#edit-flow)
   - [Cancel Flow](#cancel-flow)
+  - [State Machine Diagram](#state-machine-diagram)
 
 - [📂 Resources](#-resources)
 - [📜 License](#-license)
@@ -119,7 +120,7 @@ We hvae different use cases(listed below) but will work on Manage Time one
 
 
 ### Entities (Data Model)
-[Entity relationships and attributes](./docs/entities.md)
+![data model](https://github.com/user-attachments/assets/fc82587c-41de-4563-a208-56103ace0eca)
 
 ### Main Flow
 - Flowchart
@@ -225,6 +226,9 @@ We hvae different use cases(listed below) but will work on Manage Time one
       throw AbortError;
   }
   ```
+
+### State Machine Diagram
+![State Machine Diagram](https://github.com/user-attachments/assets/5bcb0358-7a7f-4a19-a5d3-13c6dbe6dd49)
 
 ---
 
